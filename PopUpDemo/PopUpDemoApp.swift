@@ -7,19 +7,23 @@
 
 import SwiftUI
 
+
 @main
 struct PopUpDemoApp: App {
+    
     @Environment(\.scenePhase) private var phase
+    @ObservedObject var shared = Shared()
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(shared: shared)
         }
         .onChange(of: phase) { newPhase in
             switch newPhase {
             case .active:
                 // App became active
                 print("active")
+                shared.showPopup = true
             case .inactive:
                 // App became inactive
                 print("inactive")

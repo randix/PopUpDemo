@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var showPopUp = false
+    @ObservedObject var shared: Shared
     
     var body: some View {
         ZStack {
@@ -20,7 +20,7 @@ struct ContentView: View {
                 }) {
                     Text("Top").bold()
                 }
-                .disabled(showPopUp)
+                .disabled(shared.showPopup)
                 Spacer()
                 
                 Text("Hello, world!")
@@ -29,11 +29,11 @@ struct ContentView: View {
                 
                 Button(action: {
                     print("PopUp")
-                    self.showPopUp = true
+                    self.shared.showPopup = true
                 }) {
                     Text("Show pop up").bold()
                 }
-                .disabled($showPopUp.wrappedValue)
+                .disabled(shared.showPopup)
                 .frame(width: 120)
                 Spacer()
                 
@@ -44,12 +44,11 @@ struct ContentView: View {
                     Text("Bottom").bold()
                 }
            
-                .disabled(showPopUp)
+                .disabled(shared.showPopup)
                 Spacer()
             }
             
-            
-            if showPopUp {
+            if shared.showPopup {
                 ZStack {
                     Color.white
                     VStack {
@@ -57,7 +56,7 @@ struct ContentView: View {
                         Spacer()
                         Button(action: {
                             print("Close")
-                            self.showPopUp = false
+                            self.shared.showPopup = false
                         }, label: {
                             Text("Close")
                         })
@@ -77,6 +76,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(shared: Shared())
     }
 }
