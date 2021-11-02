@@ -50,6 +50,11 @@ struct ContentView: View {
             
             if shared.showPopup {
                 ZStack {
+                    Spacer()
+                        .background(Color.yellow)
+                }
+                .opacity(0.3)
+                ZStack {
                     Color.white
                     VStack {
                         Text("Pop Up")
@@ -65,6 +70,7 @@ struct ContentView: View {
                 }
                 .frame(width: 300, height: 200)
                 .cornerRadius(20).shadow(radius:20)
+                //.opacity(0.6)
             }
         }
         .onAppear(perform: {
